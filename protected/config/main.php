@@ -42,10 +42,10 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=localhost;dbname=spm',
+			'connectionString' => 'mysql:host=192.168.10.4;dbname=spm',
 			'emulatePrepare' => true,
 			'username' => 'root',
-			'password' => '',
+			'password' => '123456',
 			'charset' => 'utf8',
 		),
 		'errorHandler'=>array(
