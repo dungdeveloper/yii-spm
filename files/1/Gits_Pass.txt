@@ -1,0 +1,34 @@
+ssh://git@184.73.178.149:20423/home/gitroot/webapps/vsource/sourcer.git
+ssh://git@184.73.178.149:20423/home/gitroot/webapps/vsource/manager.git
+ssh://git@184.73.178.149:20423/home/gitroot/webapps/vsource.git
+git pass: e6zIFnxx8Ssw6
+
+aws: ssh://git@184.73.178.149:20423/home/gitroot/webapps/vsource.validant.com.git
+origin: ssh://dung.vo@192.168.10.23/home/git/webapps/vsource.validant.com.git
+pass: abc123
+
+UPDATE LIVE SERVER (VSOURCE.VALIDANT.COM)
+ssh ktran@184.73.178.149 -p 20423
+pass: 2wsxcft6
+ssh dvo@174.129.243.228 -p 17412
+pass: vip2@ICU
+cd /home/sites/vsource.validant.com
+
+UPDATE XPS SERVER:
+ssh glandore@192.168.10.26
+pass: !admin@#$
+cd /var/www/vsource.validant.com
+pass git: abc123
+cd /var/www/virtual-bench
+
+PHPMyAdmin
+http://www.glandoresystems.com/phpmyadmin/ (gdang/queenroofi)
+http://www.glandoresystems.com/phpmyadmin-vs/ (ktran/??)
+http://192.168.10.4/phpmyadmin (root/123456)
+
+Testing server
+Ssh info: ssh bitnami@23.21.161.33 -p 20423, password: 2wsxcft6
+Phpmyadmin: http://23.21.161.33/phpmyadmin, login info: root/bitnami
+
+git init --bare sourcingexam.git
+sudo git clone ssh://git@184.73.178.149:20423/home/gitroot/webapps/sourcingexam.git .
