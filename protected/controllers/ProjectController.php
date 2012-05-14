@@ -1,6 +1,6 @@
 <?php
 
-class RequestController extends Controller {
+class ProjectController extends Controller {
 
     public $layout = '//layouts/column2';
 
@@ -16,41 +16,25 @@ class RequestController extends Controller {
                 'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
                 'users' => array('@'),
             ),
-            array('deny', // deny all users
+            array('deny',
                 'users' => array('*'),
             ),
         );
     }
 
     public function actionView($id) {
-        $model = $this->loadModel($id);
-        $files = File::model()->findAllByAttributes(array('request_id' => $id));
-
-        $uploadFiles = CUploadedFile::getInstancesByName('files');
-        if (!empty($uploadFiles)) {
-            File::model()->addMoreFiles($uploadFiles, $id);
-            $this->refresh();
-        }
-
         $this->render('view', array(
-            'model' => $model,
-            'files' => $files,
+            'model' => $this->loadModel($id),
         ));
     }
 
     public function actionCreate() {
-        $model = new Request;
+        $model = new Project;
 
-        if (isset($_POST['Request'])) {
-            $model->attributes = $_POST['Request'];
-            $files = CUploadedFile::getInstancesByName('files');
-
-            if ($model->save()) {
-                if (!empty($files)) {
-                    File::model()->saveFiles($files, $model->id);
-                }
+        if (isset($_POST['Project'])) {
+            $model->attributes = $_POST['Project'];
+            if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
-            }
         }
 
         $this->render('create', array(
@@ -61,11 +45,8 @@ class RequestController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
-        if (isset($_POST['Request'])) {
-            $model->attributes = $_POST['Request'];
+        if (isset($_POST['Project'])) {
+            $model->attributes = $_POST['Project'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -77,10 +58,8 @@ class RequestController extends Controller {
 
     public function actionDelete($id) {
         if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
             $this->loadModel($id)->delete();
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
             if (!isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -89,17 +68,17 @@ class RequestController extends Controller {
     }
 
     public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Request');
+        $dataProvider = new CActiveDataProvider('Project');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
     }
 
     public function actionAdmin() {
-        $model = new Request('search');
+        $model = new Project('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['Request']))
-            $model->attributes = $_GET['Request'];
+        if (isset($_GET['Project']))
+            $model->attributes = $_GET['Project'];
 
         $this->render('admin', array(
             'model' => $model,
@@ -107,14 +86,14 @@ class RequestController extends Controller {
     }
 
     public function loadModel($id) {
-        $model = Request::model()->findByPk($id);
+        $model = Project::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
     }
 
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'request-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'project-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }

@@ -6,14 +6,14 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
-    'name'=>'SPM',
+    'name'=>'Sourcing Project Management',
 
     // preloading 'log' component
     'preload'=>array('log'),
     // set time Zone
     'timeZone'=> 'Asia/saigon',
     // set default contronller
-    'defaultController' => 'site',
+    'defaultController' => 'project',
     // autoloading model and component classes
     'import'=>array(
         'application.models.*',
