@@ -5,47 +5,58 @@
 // This is the main Web application configuration. Any writable
 // CWebApplication properties can be configured here.
 return array(
-    'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Sourcing Project Management',
+    'basePath'=>dirname(__FILE__).DIRECTORY_SEPARATOR.'..',
+    'name'=>'SPM',
+
     // preloading 'log' component
-    'preload' => array('log'),
+    'preload'=>array('log'),
+    // set time Zone
+    'timeZone'=> 'Asia/saigon',
+    // set default contronller
+    'defaultController' => 'site',
     // autoloading model and component classes
-    'import' => array(
+    'import'=>array(
         'application.models.*',
         'application.components.*',
     ),
-    'modules' => array(
-        'gii' => array(
-            'class' => 'system.gii.GiiModule',
-            'password' => 'admin',
+
+    'modules'=>array(
+        'gii'=>array(
+            'class'=>'system.gii.GiiModule',
+            'password'=>'admin',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
-            'ipFilters' => array('127.0.0.1', '::1'),
+            'ipFilters'=>array('127.0.0.1','::1'),
         ),
     ),
+
     // application components
-    'components' => array(
-        'user' => array(
+    'components'=>array(
+        'user'=>array(
             // enable cookie-based authentication
-            'allowAutoLogin' => true,
+            'allowAutoLogin'=>true,
         ),
-        'urlManager' => array(
-            'urlFormat' => 'path',
-            'rules' => array(
-                '<controller:\w+>/<id:\d+>' => '<controller>/view',
-                '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+        'urlManager'=>array(
+            'urlFormat'=>'path',
+            'rules'=>array(
+                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
+                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
+                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
             ),
         ),
-        'db' => array(
+        'db'=>array(
             'connectionString' => 'mysql:host=192.168.10.4;dbname=yii-spm',
             'emulatePrepare' => true,
             'username' => 'root',
             'password' => '123456',
             'charset' => 'utf8',
         ),
-        'errorHandler' => array(
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+        ),
+        'errorHandler'=>array(
             // use 'site/error' action to display errors
-            'errorAction' => 'site/error',
+            'errorAction'=>'site/error',
         ),
         'log' => array(
             'class' => 'CLogRouter',
@@ -54,12 +65,12 @@ return array(
                     'class' => 'CFileLogRoute',
                     'levels' => 'error, warning',
                 ),
-            // uncomment the following to show log messages on web pages
-            /*
-              array(
-              'class'=>'CWebLogRoute',
-              ),
-             */
+                // uncomment the following to show log messages on web pages
+                /*
+                 array(
+                 'class'=>'CWebLogRoute',
+                 ),
+                */
             ),
         ),
     ),
