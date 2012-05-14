@@ -81,6 +81,7 @@ class UserController extends Controller
 		{
 			$model->attributes=$_POST['User'];
             $model->user_name = strtolower($_POST['User']['user_name']);
+            $model->user_email = strtolower($_POST['User']['user_email']);
             $model->user_created_date = time();
 			if($model->save())
             {

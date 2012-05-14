@@ -38,11 +38,17 @@
 		<?php echo $form->error($model,'user_full_name'); ?>
 	</div>
 
+    <?php if($model->isNewRecord): ?>
 	<div class="row" style="clear:both;float: left;">
 		<?php echo $form->labelEx($model,'user_email'); ?>
 		<?php echo $form->textField($model,'user_email',array('placeholder'=>'Email','style'=>'width:100%','maxlength'=>128)); ?>
 		<?php echo $form->error($model,'user_email'); ?>
 	</div>
+    <?php else: ?>
+    <div class="row" style="clear:both;float: left;">
+        <?php echo $model->user_email; ?>
+    </div>
+    <?php endif; ?>
 
     <?php if($model->isNewRecord):?>
         <div class="row" style="clear:both;float: left;">
