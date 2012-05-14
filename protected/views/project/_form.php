@@ -16,10 +16,16 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'request_id'); ?>
+		<?php echo $form->dropDownList($model,'request_id', $model->getRequestArray()); ?>
+		<?php echo $form->error($model,'request_id'); ?>
+	</div>
+    
+	<div class="row">
 		<?php echo $form->labelEx($model,'description'); ?>
 		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'description'); ?>
-	</div>
+	</div>    
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'estimate_time'); ?>

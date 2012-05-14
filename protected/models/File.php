@@ -95,11 +95,15 @@ class File extends CActiveRecord {
         $folder = Yii::app()->basePath.'/../files/'.$request_id;
         
         foreach ($files as $f) {
-            if ($f->saveAs($folder.'/'.$f->name)) {
-                $file = new File;
-                $file->filename = $f->name;
-                $file->request_id = $request_id;
-                $file->save();
+            $file = $this->findByAttributes(array('filename'=>$f->name, 'request_id'=>$request_id));
+            
+            if (is_null($file)) {
+                if ($f->saveAs($folder.'/'.$f->name)) {
+                    $file = new File;
+                    $file->filename = $f->name;
+                    $file->request_id = $request_id;
+                    $file->save();
+                }
             }
         }
     }

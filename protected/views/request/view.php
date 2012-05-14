@@ -39,11 +39,9 @@ foreach ($files as $f) {
 ?>
 
 <?php
-echo CHtml::form('','post',array(
-    'id' => 'uploadFile',
-    'enctype'=>'multipart/form-data'
-    ));
-echo '<br /><p>Add more files';
+echo '<br />Add more files';
+
+echo CHtml::form('','post',array('enctype'=>'multipart/form-data'));
 $this->widget('CMultiFileUpload', array(
     'name' => 'files',
     //'accept' => 'xls|doc|docx',
@@ -51,8 +49,6 @@ $this->widget('CMultiFileUpload', array(
     'duplicate' => 'Duplicate file!',
 ));
 echo CHtml::submitButton();
-echo '</p>';
 echo CHtml::endForm();
 ?>
-
 <!-- End Files -->

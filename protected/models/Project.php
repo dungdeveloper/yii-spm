@@ -13,52 +13,36 @@
  * @property integer $create_time
  * @property integer $update_time
  * @property integer $lead_id
+ * @property integer $request_id
  */
 class Project extends CActiveRecord {
 
-    /**
-     * Returns the static model of the specified AR class.
-     * @param string $className active record class name.
-     * @return Project the static model class
-     */
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
 
-    /**
-     * @return string the associated database table name
-     */
     public function tableName() {
         return 'project';
     }
 
-    /**
-     * @return array validation rules for model attributes.
-     */
     public function rules() {
         return array(
             array('name', 'required'),
             array('sourcers', 'numerical', 'integerOnly' => true),
             array('estimate_time, sourcer_time', 'numerical'),
             array('name', 'length', 'max' => 256),
-            array('description', 'safe'),
+            array('description, request_id', 'safe'),
             array('lead_id', 'safe', 'on' => 'search'),
         );
     }
 
-    /**
-     * @return array relational rules.
-     */
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
+            'request' => array(self::BELONGS_TO, 'Request', 'request_id'),
+            'lead' => array(self::BELONGS_TO, 'User', 'lead_id'),
         );
     }
 
-    /**
-     * @return array customized attribute labels (name=>label)
-     */
     public function attributeLabels() {
         return array(
             'id' => 'ID',
@@ -70,13 +54,10 @@ class Project extends CActiveRecord {
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'lead_id' => 'Lead',
+            'request_id' => 'Request',
         );
     }
 
-    /**
-     * Retrieves a list of models based on the current search/filter conditions.
-     * @return CActiveDataProvider the data provider that can return the models based on the search/filter conditions.
-     */
     public function search() {
         $criteria = new CDbCriteria;
 
@@ -105,6 +86,22 @@ class Project extends CActiveRecord {
      */
     public function showCreateTime() {
         return date('M d, Y', $this->create_time);
+    }
+    
+    /**
+     * Get Request array 
+     */
+    public function getRequestArray() {
+        $requests = Request::model()->findAll(array(
+            'select' => 'id, subject',
+        ));
+        
+        $arr = array();
+        foreach ($requests as $r) {
+            $arr[$r->id] = $r->subject;
+        }
+        
+        return $arr;
     }
 
 }
