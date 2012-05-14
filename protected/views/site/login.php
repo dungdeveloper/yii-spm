@@ -43,7 +43,7 @@
         /* ------------------
            default
        ------------------ */
-    body {background:#00aeef; text-align:center; }
+    body {background:#231f20; text-align:center; }
 
         /* forms.css */
     label {font-weight:bold;}
