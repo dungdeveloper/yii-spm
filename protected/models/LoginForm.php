@@ -33,7 +33,7 @@ class LoginForm extends CFormModel {
      */
     public function attributeLabels() {
         return array(
-            'rememberMe' => 'Remember me in 30 days',
+            'rememberMe' => 'Remember me',
         );
     }
 
@@ -45,6 +45,7 @@ class LoginForm extends CFormModel {
         if (!$this->hasErrors()) {
             $this->_identity = new UserIdentity($this->username, $this->password);
             if (!$this->_identity->authenticate())
+                //CVarDumper::dump($this->_identity->authenticate()); die;
                 $this->addError('password', 'Incorrect username or password.');
         }
     }

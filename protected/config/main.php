@@ -11,7 +11,10 @@ return array(
 
 	// preloading 'log' component
 	'preload'=>array('log'),
-
+    // set time Zone
+    'timeZone'=> 'Asia/saigon',
+    // set default contronller
+    'defaultController' => 'site',
 	// autoloading model and component classes
 	'import'=>array(
 		'application.models.*',
@@ -42,12 +45,16 @@ return array(
 			),
 		),
 		'db'=>array(
-			'connectionString' => 'mysql:host=192.168.10.4;dbname=spm',
+			'connectionString' => 'mysql:host=192.168.10.4;dbname=yii-spm',
 			'emulatePrepare' => true,
 			'username' => 'root',
 			'password' => '123456',
 			'charset' => 'utf8',
 		),
+        'authManager'=>array(
+            'class'=>'CDbAuthManager',
+            'connectionID'=>'db',
+        ),
 		'errorHandler'=>array(
 			// use 'site/error' action to display errors
             'errorAction'=>'site/error',
