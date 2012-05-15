@@ -53,7 +53,7 @@ class SiteController extends Controller {
     public function actionLogin() {
 
         $model = new LoginForm;
-
+        $this->layout='login';
         // if it is ajax validation request
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'login-form') {
             echo CActiveForm::validate($model);
@@ -67,7 +67,7 @@ class SiteController extends Controller {
                 $this->redirect(Yii::app()->user->returnUrl);
         }
 
-        $this->renderPartial('login', array('model' => $model));
+        $this->render('login', array('model' => $model));
     }
 
     public function actionLogout() {
