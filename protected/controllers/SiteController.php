@@ -2,7 +2,7 @@
 
 class SiteController extends Controller {
 
-    public $defaultAction = 'Login';
+    public $defaultAction = 'login';
 
     public function actions() {
         return array(
@@ -20,8 +20,10 @@ class SiteController extends Controller {
     }
 
     public function actionIndex() {
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
+        Yii::app()->user->setFlash('success', '<strong>Well done!</strong> You successfully read this important alert message.');
+        Yii::app()->user->setFlash('info', '<strong>Heads up!</strong> This alert needs your attention, but it\'s not super important.');
+        Yii::app()->user->setFlash('warning', '<strong>Warning!</strong> Best check yo self, you\'re not looking too good.');
+        Yii::app()->user->setFlash('error', '<strong>Oh snap!</strong> Change a few things up and try submitting again.');
         $this->render('index');
     }
 

@@ -68,7 +68,7 @@ class Project extends CActiveRecord {
                     'criteria' => $criteria,
                 ));
     }
-    
+
     protected function beforeSave() {
         if (parent::beforeSave()) {
             if ($this->getIsNewRecord()) {
@@ -80,27 +80,21 @@ class Project extends CActiveRecord {
         }
         return false;
     }
-    
-    /**
-     * Show create time 
-     */
+
     public function showCreateTime() {
         return date('M d, Y', $this->create_time);
     }
-    
-    /**
-     * Get Request array 
-     */
+
     public function getRequestArray() {
         $requests = Request::model()->findAll(array(
             'select' => 'id, subject',
-        ));
-        
+                ));
+
         $arr = array();
         foreach ($requests as $r) {
             $arr[$r->id] = $r->subject;
         }
-        
+
         return $arr;
     }
 
