@@ -22,21 +22,15 @@ class Request extends CActiveRecord {
     }
 
     public function rules() {
-        // NOTE: you should only define rules for those attributes that
-        // will receive user inputs.
         return array(
             array('subject', 'required'),
             array('subject', 'length', 'max' => 256),
             array('description', 'safe'),
-            // The following rule is used by search().
-            // Please remove those attributes that should not be searched.
             array('subject, client_id', 'safe', 'on' => 'search'),
         );
     }
 
     public function relations() {
-        // NOTE: you may need to adjust the relation name and the related
-        // class name for the relations automatically generated below.
         return array(
         );
     }
@@ -53,17 +47,8 @@ class Request extends CActiveRecord {
     }
 
     public function search() {
-        // Warning: Please modify the following code to remove attributes that
-        // should not be searched.
-
         $criteria = new CDbCriteria;
-
-        $criteria->compare('id', $this->id);
         $criteria->compare('subject', $this->subject, true);
-        $criteria->compare('description', $this->description, true);
-        $criteria->compare('create_time', $this->create_time);
-        $criteria->compare('update_time', $this->update_time);
-        $criteria->compare('client_id', $this->client_id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
@@ -74,8 +59,7 @@ class Request extends CActiveRecord {
         parent::beforeSave();
         if ($this->getIsNewRecord()) {
             $this->create_time = time();
-            //$this->client_id = Yii::app()->user->id;
-            $this->client_id = 1; // testing
+            $this->client_id = Yii::app()->user->id;
         }
         $this->update_time = time();
         return true;

@@ -1,45 +1,23 @@
-<div class="form">
-
-    <?php
-    $form = $this->beginWidget('CActiveForm', array(
-        'id' => 'request-form',
-        'enableAjaxValidation' => false,
-        'htmlOptions' => array('enctype' => 'multipart/form-data'),
-            ));
-    ?>
-
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
-
-    <?php echo $form->errorSummary($model); ?>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'subject'); ?>
-        <?php echo $form->textField($model, 'subject', array('size' => 60, 'maxlength' => 256)); ?>
-        <?php echo $form->error($model, 'subject'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo $form->labelEx($model, 'description'); ?>
-        <?php echo $form->textArea($model, 'description', array('rows' => 16, 'cols' => 80)); ?>
-        <?php echo $form->error($model, 'description'); ?>
-    </div>
-
-    <div class="row">
-        <?php echo '<b>Upload files</b>'; ?>
-        <?php
-        $this->widget('CMultiFileUpload', array(
-            'name' => 'files',
-            //'accept' => 'xls|doc|docx',
-            //'denied' => 'Invalid file type',
-            'duplicate' => 'Duplicate file!',
+<?php
+/** @var BootActiveForm $form */
+$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    'id' => 'request-form',
+    'htmlOptions' => array('class' => 'well', 'enctype' => 'multipart/form-data'),
         ));
-        ?>
-    </div>
+?>
 
-    <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
-    </div>
+<?php echo $form->textFieldRow($model, 'subject', array('class'=>'span10')); ?>
+<?php echo $form->textAreaRow($model, 'description', array('class'=>'span10')); ?>
 
-    <?php $this->endWidget(); ?>
+<?php echo '<br />Upload files'; ?>
+<?php
+$this->widget('CMultiFileUpload', array(
+    'name' => 'files',
+    //'accept' => 'xls|doc|docx',
+    //'denied' => 'Invalid file type',
+    'duplicate' => 'Duplicate file!',
+));
+?>
+<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
 
-</div><!-- form -->
+<?php $this->endWidget(); ?>
