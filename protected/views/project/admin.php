@@ -25,11 +25,6 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Projects</h1>
 
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
-
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
@@ -37,25 +32,33 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'project-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
+<?php $this->widget('bootstrap.widgets.BootGridView', array(
+    'id'=>'project-grid',
+    'type'=>'striped bordered condensed',
+    'dataProvider'=>$model->search(),
+    'template'=>"{items}",
+    'columns'=>array(
 		'name',
-		'description',
-		'estimate_time',
-		'sourcers',
-		'sourcer_time',
-		/*
-		'create_time',
-		'update_time',
-		'lead_id',
-		'request_id',
-		*/
 		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+            'header' => 'Time (hours)',
+            'name' => 'estimate_time',
+        ),
+		array(
+            'header' => 'Sourcers',
+            'name' => 'sourcers',
+        ),
+		array(
+            'header' => 'Time per sourcer',
+            'name' => 'sourcer_time',
+        ),
+		array(
+            'header' => 'Latest update',
+            'name' => 'update_time',
+        ),
+		'request_id',
+        array(
+            'class'=>'bootstrap.widgets.BootButtonColumn',
+            'htmlOptions'=>array('style'=>'width: 50px'),
+        ),
+    ),
 )); ?>

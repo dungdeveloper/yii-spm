@@ -18,14 +18,14 @@
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'items'=>array(
-                array('label'=>'Home', 'url'=>'#', 'active'=>true),
+                array('label'=>'Home', 'url'=>array('site/index')),
                 array('label'=>'Project', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Add Project', 'url'=>'#'),
-                    array('label'=>'Manage Project', 'url'=>'#'),
+                    array('label'=>'Add Project', 'url'=>array('project/create')),
+                    array('label'=>'Manage Project', 'url'=>array('project/admin')),
                 )),
                 array('label'=>'Request', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Add Request', 'url'=>'#'),
-                    array('label'=>'Manage Request', 'url'=>'#'),
+                    array('label'=>'Add Request', 'url'=>array('request/create')),
+                    array('label'=>'Manage Request', 'url'=>array('request/admin')),
                 )),                
             ),
         ),
