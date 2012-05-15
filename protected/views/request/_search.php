@@ -1,44 +1,15 @@
-<div class="wide form">
+<?php
 
-<?php $form=$this->beginWidget('CActiveForm', array(
-	'action'=>Yii::app()->createUrl($this->route),
-	'method'=>'get',
-)); ?>
+/** @var BootActiveForm $form */
+$form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
+    'action' => Yii::app()->createUrl($this->route),
+    'method' => 'get',
+    'htmlOptions' => array('class' => 'well'),
+        ));
+?>
 
-	<div class="row">
-		<?php echo $form->label($model,'id'); ?>
-		<?php echo $form->textField($model,'id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'subject'); ?>
-		<?php echo $form->textField($model,'subject',array('size'=>60,'maxlength'=>256)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'description'); ?>
-		<?php echo $form->textArea($model,'description',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'create_time'); ?>
-		<?php echo $form->textField($model,'create_time'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'update_time'); ?>
-		<?php echo $form->textField($model,'update_time'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'client_id'); ?>
-		<?php echo $form->textField($model,'client_id'); ?>
-	</div>
-
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
-	</div>
+<?php echo $form->textFieldRow($model, 'subject', array('class'=>'span10')); ?>
+<br />
+<?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'search', 'label'=>'Search')); ?>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

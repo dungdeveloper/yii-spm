@@ -11,8 +11,6 @@ return array(
     'preload' => array('log', 'bootstrap'),
     // set time Zone
     'timeZone' => 'Asia/saigon',
-    // set default contronller
-    'defaultController' => 'project',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',

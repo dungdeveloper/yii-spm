@@ -12,13 +12,12 @@
 <?php $this->widget('bootstrap.widgets.BootNavbar', array(
     'fixed'=>false,
     'brand'=>'SPM',
-    'brandUrl'=>'#',
+    'brandUrl'=>$this->createUrl('site/index'),
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'items'=>array(
-                array('label'=>'Home', 'url'=>array('site/index')),
                 array('label'=>'Project', 'url'=>'#', 'items'=>array(
                     array('label'=>'Add Project', 'url'=>array('project/create')),
                     array('label'=>'Manage Project', 'url'=>array('project/admin')),
@@ -35,7 +34,7 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Logout', 'url'=>'#'),
+                    array('label'=>'Logout', 'url'=>array('site/logout')),
                 )),
             ),
         ),
