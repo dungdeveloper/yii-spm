@@ -2,17 +2,26 @@
 $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
     'id'=>'horizontalForm',
     'type'=>'horizontal',
-    'htmlOptions'=>array('class'=>'well'),
+    'htmlOptions'=>array('class'=>'well','style'=>'width: 440px; margin: 0 auto;'),
 )); ?>
-<legend style="margin-left: 250px;">Sourcing Project Management System Login</legend>
-    <div class="left"><?php echo $form->textFieldRow($model, 'email', array('class'=>'span4')); ?></div>
-    <div class="left"><?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span4')); ?></div>
-    <div class="left"><?php echo $form->checkboxRow($model, 'rememberMe'); ?></div>
-    <div class="submit">
-        <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
-        <?php $this->endWidget(); ?>
+
+<div class="container">
+    <div class="row">
+        <legend class="span6" style="text-align: center;">SPM - Login</legend>
+
+        <div class="span6" style="clear: both;">
+            <?php echo $form->textFieldRow($model, 'email', array('class'=>'span3')); ?>
+        </div>
+        <div class="span6" style="clear: both;">
+            <?php echo $form->passwordFieldRow($model, 'password', array('class'=>'span3')); ?>
+        </div>
+        <div class="span6" style="clear: both;">
+            <?php echo $form->checkboxRow($model, 'rememberMe'); ?>
+        </div>
+        <div class="span6" style="clear: both;text-align: center;">
+            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
+        </div>
+
     </div>
-<style type="text/css">
-    .left {margin-left: 150px;}
-    .submit {margin-left: 420px;}
-</style>
+</div>
+    <?php $this->endWidget(); ?>
