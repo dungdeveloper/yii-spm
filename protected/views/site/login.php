@@ -19,7 +19,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
             <?php echo $form->checkboxRow($model, 'rememberMe'); ?>
         </div>
         <div class="span6" style="clear: both;text-align: center;">
-            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
+            <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Login')); ?>
         </div>
 
     </div>
