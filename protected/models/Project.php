@@ -54,7 +54,7 @@ class Project extends CActiveRecord {
             'create_time' => 'Create Time',
             'update_time' => 'Update Time',
             'lead_id' => 'Lead',
-            'request_id' => 'Request',
+            'request_id' => 'For Request',
         );
     }
 

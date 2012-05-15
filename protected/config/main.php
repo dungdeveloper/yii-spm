@@ -6,7 +6,7 @@
 // CWebApplication properties can be configured here.
 return array(
     'basePath' => dirname(__FILE__) . DIRECTORY_SEPARATOR . '..',
-    'name' => 'Sourcing Project Management',
+    'name' => 'SPM',
     // preloading 'log' component
     'preload' => array('log', 'bootstrap'),
     // set time Zone

@@ -46,11 +46,11 @@
 	<?php echo $content; ?>
 	<div class="clear"></div>
 
-	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by <?php echo Yii::app()->name; ?>.<br/>
-		All Rights Reserved.<br/>
-		<?php echo Yii::powered(); ?>
-	</div><!-- footer -->
+    <hr />
+	<footer>        
+        <p class="copy">&copy; Glandore Systems <?php echo date('Y'); ?></p>
+        <p class="powered">Powered by Yii PHP framework & Bootstrap</p>
+	</footer>
 </div>
 
 </body>
