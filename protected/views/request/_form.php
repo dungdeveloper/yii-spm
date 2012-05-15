@@ -18,6 +18,11 @@ $this->widget('CMultiFileUpload', array(
     'duplicate' => 'Duplicate file!',
 ));
 ?>
+
+<?php if ($this->action->id == 'update'): ?>
+    <?php echo $model->showFiles(); ?>
+<?php endif; ?>
+
 <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
 
 <?php $this->endWidget(); ?>

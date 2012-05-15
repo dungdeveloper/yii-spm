@@ -47,7 +47,8 @@ class RequestController extends Controller {
                 if (!empty($files)) {
                     File::model()->saveFiles($files, $model->id);
                 }
-                $this->redirect(array('view', 'id' => $model->id));
+                Yii::app()->user->setFlash('success', 'Your request has been created');
+                $this->redirect(array('request/admin'));
             }
         }
 
@@ -59,13 +60,12 @@ class RequestController extends Controller {
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
 
-        // Uncomment the following line if AJAX validation is needed
-        // $this->performAjaxValidation($model);
-
         if (isset($_POST['Request'])) {
             $model->attributes = $_POST['Request'];
-            if ($model->save())
-                $this->redirect(array('view', 'id' => $model->id));
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success', 'Successfully updated your request');
+                $this->redirect(array('request/admin'));
+            }
         }
 
         $this->render('update', array(
@@ -95,7 +95,8 @@ class RequestController extends Controller {
 
     public function actionAdmin() {
         $model = new Request('search');
-        $model->unsetAttributes();  // clear any default values
+        $model->unsetAttributes();
+        
         if (isset($_GET['Request']))
             $model->attributes = $_GET['Request'];
 

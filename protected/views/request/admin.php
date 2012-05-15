@@ -1,14 +1,4 @@
 <?php
-$this->breadcrumbs=array(
-	'Requests'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Request', 'url'=>array('index')),
-	array('label'=>'Create Request', 'url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -23,12 +13,8 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<?php $this->widget('bootstrap.widgets.BootAlert'); ?>
 <h1>Manage Requests</h1>
-
-<p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
-</p>
 
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
@@ -37,21 +23,37 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'request-grid',
-	'dataProvider'=>$model->search(),
-	'filter'=>$model,
-	'columns'=>array(
-		'id',
-		'subject',
-		'description',
-		'create_time',
-		'update_time',
-		/*
-		'client_id',
-		*/
+<?php $this->widget('bootstrap.widgets.BootGridView', array(
+    'id'=>'request-grid',
+    'type'=>'striped bordered condensed',
+    'dataProvider'=>$model->search(),
+    'template'=>"{items}",
+    'columns'=>array(
 		array(
-			'class'=>'CButtonColumn',
-		),
-	),
+            'name' => 'subject',
+            'htmlOptions' => array('width'=>200),
+        ),
+		array(
+            'name' => 'description',
+            'htmlOptions' => array('width'=>400),
+            'sortable' => FALSE,
+        ),        
+		array(
+            'header' => 'Files',
+            'value' => '$data->showFiles()',
+            'type' => 'html',
+        ),                
+		array(
+            'header' => 'Latest update',
+            'name' => 'update_time',
+            'value' => '$data->showUpdateTime()',
+            'htmlOptions' => array('width'=>100),
+        ),
+        array(
+            'header' => 'Actions',
+            'class'=>'bootstrap.widgets.BootButtonColumn',
+            'htmlOptions'=>array('style'=>'width: 50px'),
+            'template' => '{update} {delete}',
+        ),
+    ),
 )); ?>

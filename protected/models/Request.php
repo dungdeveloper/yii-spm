@@ -32,6 +32,7 @@ class Request extends CActiveRecord {
 
     public function relations() {
         return array(
+            'files' => array(self::HAS_MANY, 'File', 'request_id'),
         );
     }
 
@@ -49,6 +50,8 @@ class Request extends CActiveRecord {
     public function search() {
         $criteria = new CDbCriteria;
         $criteria->compare('subject', $this->subject, true);
+        $criteria->order = 'id DESC';
+        $criteria->with = array('files');
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
@@ -63,6 +66,22 @@ class Request extends CActiveRecord {
         }
         $this->update_time = time();
         return true;
+    }
+    
+    public function showUpdateTime() {
+        return date('M d, Y', $this->update_time);
+    }
+    
+    public function showFiles() {
+        $ret = '';
+        $files = $this->files;
+        $folder = Yii::app()->baseUrl . '/files/' . $this->id . '/';
+        
+        foreach ($files as $f) {
+            $ret .= CHtml::link($f->filename, $folder . $f->filename).'<br />';
+        }        
+        
+        return $ret;
     }
 
 }

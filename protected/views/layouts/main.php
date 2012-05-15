@@ -11,22 +11,21 @@
 
 <?php $this->widget('bootstrap.widgets.BootNavbar', array(
     'fixed'=>false,
-    'brand'=>'SPM',
-    'brandUrl'=>'#',
+    'brand'=>'Sourcing PM',
+    'brandUrl'=>$this->createUrl('site/index'),
     'collapse'=>true, // requires bootstrap-responsive.css
     'items'=>array(
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'items'=>array(
-                array('label'=>'Home', 'url'=>array('site/index')),
-                array('label'=>'Project', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Add Project', 'url'=>array('project/create')),
-                    array('label'=>'Manage Project', 'url'=>array('project/admin')),
-                )),
                 array('label'=>'Request', 'url'=>'#', 'items'=>array(
-                    array('label'=>'Add Request', 'url'=>array('request/create')),
-                    array('label'=>'Manage Request', 'url'=>array('request/admin')),
-                )),                
+                    array('label'=>'Create Request', 'url'=>array('request/create')),
+                    array('label'=>'Manage Requests', 'url'=>array('request/admin')),
+                )),                                
+                array('label'=>'Project', 'url'=>'#', 'items'=>array(
+                    array('label'=>'Create Project', 'url'=>array('project/create')),
+                    array('label'=>'Manage Projects', 'url'=>array('project/admin')),
+                )),
             ),
         ),
         '<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
@@ -35,7 +34,7 @@
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
                 array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
-                    array('label'=>'Logout', 'url'=>'#'),
+                    array('label'=>'Logout', 'url'=>array('site/logout')),
                 )),
             ),
         ),
