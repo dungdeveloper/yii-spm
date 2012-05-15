@@ -26,7 +26,7 @@
                 array('label'=>'Request', 'url'=>'#', 'items'=>array(
                     array('label'=>'Add Request', 'url'=>'#'),
                     array('label'=>'Manage Request', 'url'=>'#'),
-                )),                
+                )),
             ),
         ),
         '<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
