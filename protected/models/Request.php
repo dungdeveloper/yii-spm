@@ -33,6 +33,7 @@ class Request extends CActiveRecord {
     public function relations() {
         return array(
             'files' => array(self::HAS_MANY, 'File', 'request_id'),
+            'client' => array(self::BELONGS_TO, 'User', 'client_id'),
         );
     }
 
@@ -92,5 +93,5 @@ class Request extends CActiveRecord {
         }
 
         return $ret;
-    }
+    }    
 }

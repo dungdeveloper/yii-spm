@@ -62,7 +62,7 @@ class Project extends CActiveRecord {
         $criteria = new CDbCriteria;
 
         $criteria->compare('name', $this->name, true);
-        $criteria->compare('lead_id', $this->lead_id);
+        $criteria->compare('request_id', $this->request_id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
@@ -96,6 +96,20 @@ class Project extends CActiveRecord {
         }
 
         return $arr;
+    }
+
+    public function showUpdateTime() {
+        return date('M d, Y', $this->update_time);
+    }
+
+    public function showRequest() {
+        $request = $this->request;
+        $name = $request->subject;
+        if (strlen($name) > 10) {
+            $name = substr($name, 0, 10) . '...';
+        }
+
+        echo CHtml::link($name, array('request/view', 'id'=>$request->id));
     }
 
 }

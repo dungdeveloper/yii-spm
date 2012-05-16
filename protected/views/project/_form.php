@@ -6,12 +6,13 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 
     <?php echo $form->dropDownListRow($model,'request_id', $model->getRequestArray()); ?>
     <?php echo $form->textFieldRow($model,'name',array('class'=>'span10')); ?>
-    <?php echo $form->textAreaRow($model,'description',array('class'=>'span10')); ?>
+    <?php echo $form->textAreaRow($model,'description',array('class'=>'span10', 'rows'=>10)); ?>
     <?php echo $form->textFieldRow($model,'estimate_time',array('class'=>'span3')); ?>
     <?php echo $form->textFieldRow($model,'sourcers',array('class'=>'span3')); ?>
     <?php echo $form->textFieldRow($model,'sourcer_time',array('class'=>'span3')); ?>
     
     <br />
     <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
+    or <?php echo CHtml::link('Cancel', array('project/admin')); ?>
 
 <?php $this->endWidget(); ?>
