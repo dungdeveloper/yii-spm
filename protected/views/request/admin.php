@@ -40,7 +40,7 @@ $('.search-form form').submit(function(){
         ),        
 		array(
             'header' => 'Files',
-            'value' => '$data->showFiles()',
+            'value' => '$data->showFiles("admin")',
             'type' => 'html',
         ),                
 		array(
@@ -54,6 +54,7 @@ $('.search-form form').submit(function(){
             'class'=>'bootstrap.widgets.BootButtonColumn',
             'htmlOptions'=>array('style'=>'width: 50px'),
             'template' => '{update} {delete}',
+            'afterDelete'=>'function(link,success,data){ if(success) alert("Delete completed successfuly"); }',
         ),
     ),
 )); ?>

@@ -77,28 +77,30 @@ class File extends CActiveRecord {
     }
 
     public function saveFiles($files, $request_id) {
-        $folder = Yii::app()->basePath.'/../files/'.$request_id;
-        
-        if (mkdir($folder)) {
-            foreach ($files as $f) {
-                if ($f->saveAs($folder.'/'.$f->name)) {
-                    $file = new File;
-                    $file->filename = $f->name;
-                    $file->request_id = $request_id;
-                    $file->save();
-                }
+        $folder = Yii::app()->basePath . '/../files/' . $request_id;
+
+        if (!is_dir($folder)) {
+            mkdir($folder);
+        }
+
+        foreach ($files as $f) {
+            if ($f->saveAs($folder . '/' . $f->name)) {
+                $file = new File;
+                $file->filename = $f->name;
+                $file->request_id = $request_id;
+                $file->save();
             }
         }
     }
-    
+
     public function addMoreFiles($files, $request_id) {
-        $folder = Yii::app()->basePath.'/../files/'.$request_id;
-        
+        $folder = Yii::app()->basePath . '/../files/' . $request_id;
+
         foreach ($files as $f) {
-            $file = $this->findByAttributes(array('filename'=>$f->name, 'request_id'=>$request_id));
-            
+            $file = $this->findByAttributes(array('filename' => $f->name, 'request_id' => $request_id));
+
             if (is_null($file)) {
-                if ($f->saveAs($folder.'/'.$f->name)) {
+                if ($f->saveAs($folder . '/' . $f->name)) {
                     $file = new File;
                     $file->filename = $f->name;
                     $file->request_id = $request_id;

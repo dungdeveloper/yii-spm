@@ -11,7 +11,7 @@ class RequestController extends Controller {
     public function accessRules() {
         return array(
             array('allow',
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete', 'deleteFile'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -63,6 +63,11 @@ class RequestController extends Controller {
         if (isset($_POST['Request'])) {
             $model->attributes = $_POST['Request'];
             if ($model->save()) {
+                $files = CUploadedFile::getInstancesByName('files');
+                if (!empty($files)) {
+                    File::model()->addMoreFiles($files, $id);
+                }                
+                
                 Yii::app()->user->setFlash('success', 'Successfully updated your request');
                 $this->redirect(array('request/admin'));
             }
@@ -74,18 +79,16 @@ class RequestController extends Controller {
     }
 
     public function actionDelete($id) {
-        Request::model()->obliterate_directory('c:/wamp/www/yii-spm/files/test'); die;
         if (Yii::app()->request->isPostRequest) {
             $model = $this->loadModel($id);
             $model->delete();
             // delete files
-            $file = File::model()->findByAttributes(array('request_id'=>$id));
-            if ($file) {
-                File::model()->deleteAllByAttributes(array('request_id'=>$id));
-                $folder = Yii::app()->basePath . '/../files/' . $id;
-                Request::model()->obliterate_directory($folder);
-            }
-
+            $folder = Yii::app()->basePath.'/../files/'.$id.'/';
+            $files = File::model()->findAllByAttributes(array('request_id'=>$id));
+            foreach ($files as $f) {
+                unlink($folder.$f->filename);
+            }            
+ 
             if (isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
@@ -123,6 +126,17 @@ class RequestController extends Controller {
         if (isset($_POST['ajax']) && $_POST['ajax'] === 'request-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
+        }
+    }
+    
+    public function actionDeleteFile($id) {
+        if (File::model()->deleteByPk($id)) {
+            $request_id = $_GET['request_id'];
+            $fileName = $_GET['file'];
+            unlink(Yii::app()->basePath.'/../files/'.$request_id.'/'.$fileName);
+            
+            Yii::app()->user->setFlash('success', 'Successfully deleted '.$fileName);
+            $this->redirect(array('request/update', 'id'=>$request_id));
         }
     }
 

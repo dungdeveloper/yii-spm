@@ -75,29 +75,22 @@ class Request extends CActiveRecord {
         return date('M d, Y', $this->update_time);
     }
 
-    public function showFiles() {
+    public function showFiles($action='update') {
         $ret = '';
         $files = $this->files;
         $folder = Yii::app()->baseUrl . '/files/' . $this->id . '/';
 
         foreach ($files as $f) {
+            if ($action == 'update') 
+                $ret .= CHtml::link('<img src="'.Yii::app()->baseUrl.'/images/delete.png'.'" alt="delete" />&nbsp;', array('request/deleteFile', 
+                    'id'=>$f->id, 
+                    'file'=>$f->filename, 
+                    'request_id'=>$this->id
+                ), array('onclick'=>'return confirm("Are you sure to delete this item?")'));
+            
             $ret .= CHtml::link($f->filename, $folder . $f->filename) . '<br />';
         }
 
         return $ret;
     }
-
-    function obliterate_directory($dir) {
-        foreach (new DirectoryIterator($dir) as $file) {
-            if ($file->isDir()) {
-                if (!$file->isDot()) {
-                    obliterate_directory($file->getPathname());
-                }
-            } else {
-                unlink($file->getPathname());
-            }
-        }
-        rmdir($dir);
-    }
-
 }

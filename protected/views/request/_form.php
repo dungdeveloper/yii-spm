@@ -7,7 +7,7 @@ $form = $this->beginWidget('bootstrap.widgets.BootActiveForm', array(
 ?>
 
 <?php echo $form->textFieldRow($model, 'subject', array('class'=>'span10')); ?>
-<?php echo $form->textAreaRow($model, 'description', array('class'=>'span10')); ?>
+<?php echo $form->textAreaRow($model, 'description', array('class'=>'span10', 'rows'=>10)); ?>
 
 <?php echo '<br />Upload files'; ?>
 <?php
@@ -24,5 +24,6 @@ $this->widget('CMultiFileUpload', array(
 <?php endif; ?>
 
 <?php $this->widget('bootstrap.widgets.BootButton', array('buttonType'=>'submit', 'icon'=>'ok', 'label'=>'Submit')); ?>
+ or <?php echo CHtml::link('Cancel', array('request/admin')); ?>
 
 <?php $this->endWidget(); ?>
