@@ -33,7 +33,7 @@
             'class'=>'bootstrap.widgets.BootMenu',
             'htmlOptions'=>array('class'=>'pull-right'),
             'items'=>array(
-                array('label'=>Yii::app()->user->name, 'url'=>'#', 'items'=>array(
+                array('label'=>Yii::app()->user->getState('fullName'), 'url'=>'#', 'items'=>array(
                     array('label'=>'Logout', 'url'=>array('site/logout')),
                 )),
             ),
