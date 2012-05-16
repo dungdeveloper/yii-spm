@@ -46,7 +46,7 @@
 	<div class="clear"></div>
 
     <hr />
-	<footer>        
+	<footer style="text-align: center;">        
         <p class="copy">&copy; Glandore Systems <?php echo date('Y'); ?></p>
         <p class="powered">Powered by Yii PHP framework & Bootstrap</p>
 	</footer>

@@ -74,12 +74,19 @@ class RequestController extends Controller {
     }
 
     public function actionDelete($id) {
+        Request::model()->obliterate_directory('c:/wamp/www/yii-spm/files/test'); die;
         if (Yii::app()->request->isPostRequest) {
-            // we only allow deletion via POST request
-            $this->loadModel($id)->delete();
+            $model = $this->loadModel($id);
+            $model->delete();
+            // delete files
+            $file = File::model()->findByAttributes(array('request_id'=>$id));
+            if ($file) {
+                File::model()->deleteAllByAttributes(array('request_id'=>$id));
+                $folder = Yii::app()->basePath . '/../files/' . $id;
+                Request::model()->obliterate_directory($folder);
+            }
 
-            // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
-            if (!isset($_GET['ajax']))
+            if (isset($_GET['ajax']))
                 $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
         }
         else

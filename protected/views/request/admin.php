@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
     'id'=>'request-grid',
     'type'=>'striped bordered condensed',
     'dataProvider'=>$model->search(),
-    'template'=>"{items}",
+    'template'=>"{items} {pager}",
     'columns'=>array(
 		array(
             'name' => 'subject',

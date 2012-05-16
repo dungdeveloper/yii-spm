@@ -50,11 +50,14 @@ class Request extends CActiveRecord {
     public function search() {
         $criteria = new CDbCriteria;
         $criteria->compare('subject', $this->subject, true);
-        $criteria->order = 'id DESC';
+        //$criteria->order = 'id DESC';
         $criteria->with = array('files');
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,
+                    'pagination' => array(
+                        'pageSize' => 50,
+                    ),
                 ));
     }
 
@@ -67,21 +70,34 @@ class Request extends CActiveRecord {
         $this->update_time = time();
         return true;
     }
-    
+
     public function showUpdateTime() {
         return date('M d, Y', $this->update_time);
     }
-    
+
     public function showFiles() {
         $ret = '';
         $files = $this->files;
         $folder = Yii::app()->baseUrl . '/files/' . $this->id . '/';
-        
+
         foreach ($files as $f) {
-            $ret .= CHtml::link($f->filename, $folder . $f->filename).'<br />';
-        }        
-        
+            $ret .= CHtml::link($f->filename, $folder . $f->filename) . '<br />';
+        }
+
         return $ret;
+    }
+
+    function obliterate_directory($dir) {
+        foreach (new DirectoryIterator($dir) as $file) {
+            if ($file->isDir()) {
+                if (!$file->isDot()) {
+                    obliterate_directory($file->getPathname());
+                }
+            } else {
+                unlink($file->getPathname());
+            }
+        }
+        rmdir($dir);
     }
 
 }
