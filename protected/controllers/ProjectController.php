@@ -19,7 +19,7 @@ class ProjectController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete','chart'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -146,4 +146,10 @@ class ProjectController extends Controller {
         }
     }
 
+    /*
+     *
+     */
+    public function actionChart(){
+        $this->render('chart');
+    }
 }
