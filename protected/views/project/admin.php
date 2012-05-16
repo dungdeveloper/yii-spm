@@ -25,30 +25,48 @@ $('.search-form form').submit(function(){
 <?php $this->widget('bootstrap.widgets.BootGridView', array(
     'id'=>'project-grid',
     'type'=>'striped bordered condensed',
-    'dataProvider'=>$model->search(),
+    'dataProvider'=>$model->with('request')->search(),
     'template'=>"{items}",
     'columns'=>array(
-		'name',
+		array(
+            'name' => 'name',
+            'htmlOptions' => array('width'=>150),
+        ),
+        array(
+            'name' => 'description',
+            'sortable' => FALSE,
+            'htmlOptions' => array('width'=>300),
+        ),
 		array(
             'header' => 'Time (hours)',
             'name' => 'estimate_time',
         ),
 		array(
-            'header' => 'Sourcers',
+            'header' => 'No of Sourcers',
             'name' => 'sourcers',
         ),
 		array(
-            'header' => 'Time per sourcer',
+            'header' => 'Each sourcer (hours)',
             'name' => 'sourcer_time',
         ),
 		array(
             'header' => 'Latest update',
             'name' => 'update_time',
+            'value' => '$data->showUpdateTime()',
+            'htmlOptions' => array('width'=>100),
         ),
-		'request_id',
+		array(
+            'name' => 'request_id',
+            'value' => '$data->showRequest()',
+            'type' => 'html',
+            'htmlOptions' => array('width'=>100),
+        ),
         array(
+            'header' => 'Actions',
             'class'=>'bootstrap.widgets.BootButtonColumn',
             'htmlOptions'=>array('style'=>'width: 50px'),
+            'template' => '{update} {delete}',
+            'afterDelete'=>'function(link,success,data){ if(success) alert("Delete completed successfuly"); }',            
         ),
     ),
 )); ?>

@@ -13,23 +13,27 @@ $this->menu = array(
 );
 ?>
 
-<h1>View Request #<?php echo $model->id; ?></h1>
+<h1>View <?php echo $model->subject; ?></h1>
 
 <?php
-$this->widget('zii.widgets.CDetailView', array(
+$this->widget('bootstrap.widgets.BootDetailView', array(
     'data' => $model,
     'attributes' => array(
-        'id',
-        'subject',
         'description',
-        'create_time',
-        'update_time',
-        'client_id',
+        array(
+            'name' => 'update_time',
+            'value' => $model->showUpdateTime(),
+        ),
+        array(
+            'name' => 'client_id',
+            'value' => $model->client->user_name,
+        ),
     ),
 ));
 ?>
 
 <!-- Files -->
+<h1>Files</h1>
 <?php
 $folder = Yii::app()->baseUrl . '/files/' . $model->id;
 foreach ($files as $f) {
@@ -37,18 +41,7 @@ foreach ($files as $f) {
     echo '<br />';
 }
 ?>
-
-<?php
-echo '<br />Add more files';
-
-echo CHtml::form('','post',array('enctype'=>'multipart/form-data'));
-$this->widget('CMultiFileUpload', array(
-    'name' => 'files',
-    //'accept' => 'xls|doc|docx',
-    //'denied' => 'Invalid file type',
-    'duplicate' => 'Duplicate file!',
-));
-echo CHtml::submitButton();
-echo CHtml::endForm();
-?>
 <!-- End Files -->
+
+<p>&nbsp;</p>
+<p><?php echo CHtml::link('&laquo; Back', Yii::app()->request->getUrlReferrer()); ?></p>
