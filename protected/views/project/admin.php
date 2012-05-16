@@ -15,6 +15,16 @@ $('.search-form form').submit(function(){
 
 <h1>Manage Projects</h1>
 
+<?php $this->widget('bootstrap.widgets.BootButton', array(
+    'label'=>'Create Project',
+    'url'=>array('create'),
+    'type'=>'primary',
+    'size'=>'large',
+    'htmlOptions'=>array(        
+        'style'=>'float:right; margin-top: -25px;'
+    ),
+)); ?>
+
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(

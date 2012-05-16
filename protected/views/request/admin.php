@@ -16,6 +16,16 @@ $('.search-form form').submit(function(){
 <?php $this->widget('bootstrap.widgets.BootAlert'); ?>
 <h1>Manage Requests</h1>
 
+<?php $this->widget('bootstrap.widgets.BootButton', array(
+    'label'=>'Create Request',
+    'url'=>array('create'),
+    'type'=>'primary',
+    'size'=>'large',
+    'htmlOptions'=>array(        
+        'style'=>'float:right; margin-top: -25px;'
+    ),
+)); ?>
+
 <?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
