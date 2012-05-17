@@ -11,7 +11,7 @@ class ProjectController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
-                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete','chart'),
+                'actions' => array('index', 'view', 'create', 'update', 'admin', 'delete'),
                 'users' => array('@'),
             ),
             array('deny', // deny all users
@@ -97,12 +97,5 @@ class ProjectController extends Controller {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
-    }
-
-    /*
-     *
-     */
-    public function actionChart(){
-        $this->render('chart');
     }
 }
