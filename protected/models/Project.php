@@ -59,10 +59,12 @@ class Project extends CActiveRecord {
     }
 
     public function search() {
+        $user = Yii::app()->user;
         $criteria = new CDbCriteria;
-
         $criteria->compare('name', $this->name, true);
         $criteria->compare('request_id', $this->request_id);
+        if ($user->role != 'admin')
+            $criteria->addCondition('lead_id='.$user->id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

@@ -49,10 +49,13 @@ class Request extends CActiveRecord {
     }
 
     public function search() {
+        $user = Yii::app()->user;
         $criteria = new CDbCriteria;
         $criteria->compare('subject', $this->subject, true);
-        //$criteria->order = 'id DESC';
-        $criteria->with = array('files');
+        $criteria->with = array('files');        
+        //$criteria->order = 'id DESC';   
+        if ($user->role != 'admin')
+            $criteria->addCondition('client_id='.$user->id);
 
         return new CActiveDataProvider($this, array(
                     'criteria' => $criteria,

@@ -18,17 +18,18 @@
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'items'=>array(
-                array('label'=>'Request', 'url'=>'#', 'items'=>array(
+                array('label'=>'Request', 'url'=>'#', 'visible'=>(Yii::app()->user->role != 'lead'), 
+                    'items'=>array(
                     array('label'=>'Create Request', 'url'=>array('request/create')),
                     array('label'=>'Manage Requests', 'url'=>array('request/admin')),
                 )),                                
-                array('label'=>'Project', 'url'=>'#', 'items'=>array(
+                array('label'=>'Project', 'url'=>'#', 'visible'=>(Yii::app()->user->role != 'client'), 
+                    'items'=>array(
                     array('label'=>'Create Project', 'url'=>array('project/create')),
                     array('label'=>'Manage Projects', 'url'=>array('project/admin')),
                 )),
             ),
         ),
-        '<form class="navbar-search pull-left" action=""><input type="text" class="search-query span2" placeholder="Search"></form>',
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'htmlOptions'=>array('class'=>'pull-right'),
