@@ -15,6 +15,7 @@ return array(
     'import' => array(
         'application.models.*',
         'application.components.*',
+        'ext.widgets.*',
     ),
     'modules' => array(
         'gii' => array(

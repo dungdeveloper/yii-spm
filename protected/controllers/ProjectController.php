@@ -124,5 +124,4 @@ class ProjectController extends Controller {
             Yii::app()->end();
         }
     }
-
 }
