@@ -21,8 +21,34 @@ class ProjectController extends Controller {
     }
 
     public function actionView($id) {
+        $model = $this->loadModel($id);
+        $modelReport = new Report;
+        $dataProvider = new CActiveDataProvider('Report', array(
+            'criteria' => array(
+                'condition' => 'project_id='.$id,
+                'with' => array('files'),
+            ),
+        ));
+        
+        if (isset($_POST['Report'])) {
+            $modelReport->progress = $_POST['Report']['progress'];
+            $modelReport->project_id = $id;
+            
+            if ($modelReport->save()) {
+                $files = CUploadedFile::getInstancesByName('files');
+                if (!empty($files)) {
+                    File::model()->saveReportFiles($files, $modelReport->id);
+                }                
+                
+                Yii::app()->user->setFlash('success', 'Successfully created your report');
+                $this->refresh();
+            }
+        }
+        
         $this->render('view', array(
-            'model' => $this->loadModel($id),
+            'model' => $model,
+            'modelReport' => $modelReport,
+            'dataProvider' => $dataProvider,
         ));
     }
 

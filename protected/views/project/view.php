@@ -1,32 +1,32 @@
-<?php
-$this->breadcrumbs=array(
-	'Projects'=>array('index'),
-	$model->name,
-);
+<?php $this->widget('bootstrap.widgets.BootAlert'); ?>
+<h1>View <i><?php echo $model->name; ?></i></h1>
 
-$this->menu=array(
-	array('label'=>'List Project', 'url'=>array('index')),
-	array('label'=>'Create Project', 'url'=>array('create')),
-	array('label'=>'Update Project', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Project', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Project', 'url'=>array('admin')),
-);
-?>
-
-<h1>View Project #<?php echo $model->id; ?></h1>
-
-<?php $this->widget('zii.widgets.CDetailView', array(
+<?php $this->widget('bootstrap.widgets.BootDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
-		'id',
-		'name',
 		'description',
 		'estimate_time',
 		'sourcers',
 		'sourcer_time',
-		'create_time',
-		'update_time',
-		'lead_id',
-		'request_id',
+		array(
+            'name' => 'update_time',
+            'value' => $model->showUpdateTime(),
+        ),
+		array(
+            'name' => 'request_id',
+            'value' => $model->showRequest(),
+            'type' => 'html',
+        ),
 	),
 )); ?>
+
+<!-- Report -->
+<?php $this->widget('bootstrap.widgets.BootThumbnails', array(
+    'dataProvider'=>$dataProvider,
+    'template'=>"{items}\n{pager}",
+    'itemView'=>'../report/_view',
+)); ?>
+
+<h1>Report</h1>
+<?php echo $this->renderPartial('../report/_form', array('model'=>$modelReport)); ?>
+<!-- End Report -->

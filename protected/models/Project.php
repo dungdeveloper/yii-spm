@@ -109,7 +109,7 @@ class Project extends CActiveRecord {
             $name = substr($name, 0, 10) . '...';
         }
 
-        echo CHtml::link($name, array('request/view', 'id'=>$request->id));
+        return CHtml::link($name, array('request/view', 'id'=>$request->id));
     }
 
 }

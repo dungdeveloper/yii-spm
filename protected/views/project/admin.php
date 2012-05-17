@@ -75,7 +75,6 @@ $('.search-form form').submit(function(){
             'header' => 'Actions',
             'class'=>'bootstrap.widgets.BootButtonColumn',
             'htmlOptions'=>array('style'=>'width: 50px'),
-            'template' => '{update} {delete}',
             'afterDelete'=>'function(link,success,data){ if(success) alert("Delete completed successfuly"); }',            
         ),
     ),

@@ -110,4 +110,22 @@ class File extends CActiveRecord {
         }
     }
 
+    public function saveReportFiles($files, $report_id) {
+        $name = 'report' . $report_id;
+        $folder = Yii::app()->basePath . '/../files/' . $name;
+        
+        if (!is_dir($folder)) {
+            mkdir($folder);
+        }
+
+        foreach ($files as $f) {
+            if ($f->saveAs($folder . '/' . $f->name)) {
+                $file = new FileReport();
+                $file->filename = $f->name;
+                $file->report_id = $report_id;
+                $file->save();
+            }
+        }
+    }
+
 }
