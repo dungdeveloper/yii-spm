@@ -29,6 +29,7 @@ class Report extends CActiveRecord {
     public function relations() {
         return array(
             'files' => array(self::HAS_MANY, 'FileReport', 'report_id'),
+            'project' => array(self::BELONGS_TO, 'Project', 'project_id'),
         );
     }
 

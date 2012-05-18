@@ -7,7 +7,11 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body onload="createChartControl('GanttDiv')">
+<?php if ($this->action->id == 'gantt'): ?>    
+    <body onload="createChartControl('GanttDiv')">
+<?php else: ?>
+    <body>
+<?php endif; ?>
 
 <?php $this->widget('bootstrap.widgets.BootNavbar', array(
     'fixed'=>false,
@@ -28,6 +32,7 @@
                     array('label'=>'Create Project', 'url'=>array('project/create')),
                     array('label'=>'Manage Projects', 'url'=>array('project/admin')),
                 )),
+                array('label'=>'Gantt', 'url'=>array('site/gantt'), 'visible'=>(Yii::app()->user->role != 'client')),
             ),
         ),
         array(

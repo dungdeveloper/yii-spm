@@ -40,6 +40,7 @@ class Project extends CActiveRecord {
         return array(
             'request' => array(self::BELONGS_TO, 'Request', 'request_id'),
             'lead' => array(self::BELONGS_TO, 'User', 'lead_id'),
+            'reports' => array(self::HAS_MANY, 'Report', 'project_id'),
         );
     }
 

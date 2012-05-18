@@ -72,7 +72,15 @@ class SiteController extends Controller {
     }
     
     public function actionGantt() {
-        $this->render('gantt');
+        $criteria = new CDbCriteria();
+        $criteria->condition = 'id IN (SELECT DISTINCT request_id FROM project)';
+        $requests = Request::model()->findAll($criteria);
+        $projects = Project::model()->with('reports')->findAll();
+        
+        $this->render('gantt', array(
+            'requests' => $requests,
+            'projects' => $projects,
+        ));
     }
 
 }
