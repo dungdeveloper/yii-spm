@@ -70,5 +70,9 @@ class SiteController extends Controller {
         Yii::app()->user->logout();
         $this->redirect(Yii::app()->createUrl('/site/login'));
     }
+    
+    public function actionGantt() {
+        $this->render('gantt');
+    }
 
 }

@@ -7,7 +7,7 @@
 	<title><?php echo CHtml::encode($this->pageTitle); ?></title>
 </head>
 
-<body>
+<body onload="createChartControl('GanttDiv')">
 
 <?php $this->widget('bootstrap.widgets.BootNavbar', array(
     'fixed'=>false,
