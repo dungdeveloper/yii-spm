@@ -22,7 +22,12 @@
         array(
             'class'=>'bootstrap.widgets.BootMenu',
             'items'=>array(
-                array('label'=>'Request', 'url'=>'#', 'visible'=>(Yii::app()->user->role != 'lead'), 
+                array('label'=>'Admin', 'url'=>'#', 'visible'=>(Yii::app()->user->role != 'lead' && Yii::app()->user->role != 'client'),
+                    'items'=>array(
+                        array('label'=>'Create User', 'url'=>array('user/create')),
+                        array('label'=>'Manage User', 'url'=>array('user/admin')),
+                    )),
+                array('label'=>'Request', 'url'=>'#', 'visible'=>(Yii::app()->user->role != 'lead'),
                     'items'=>array(
                     array('label'=>'Create Request', 'url'=>array('request/create')),
                     array('label'=>'Manage Requests', 'url'=>array('request/admin')),

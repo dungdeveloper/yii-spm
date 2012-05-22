@@ -1,54 +1,29 @@
-<div class="wide form">
-
-<?php $form=$this->beginWidget('CActiveForm', array(
+<?php $form=$this->beginWidget('bootstrap.widgets.BootActiveForm',array(
 	'action'=>Yii::app()->createUrl($this->route),
 	'method'=>'get',
 )); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_id'); ?>
-		<?php echo $form->textField($model,'user_id',array('size'=>12,'maxlength'=>12)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_id',array('class'=>'span5','maxlength'=>12)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_name'); ?>
-		<?php echo $form->textField($model,'user_name',array('size'=>60,'maxlength'=>64)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_name',array('class'=>'span5','maxlength'=>64)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_first_name'); ?>
-		<?php echo $form->textField($model,'user_first_name',array('size'=>60,'maxlength'=>128)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_first_name',array('class'=>'span5','maxlength'=>128)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_last_name'); ?>
-		<?php echo $form->textField($model,'user_last_name',array('size'=>60,'maxlength'=>128)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_last_name',array('class'=>'span5','maxlength'=>128)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_full_name'); ?>
-		<?php echo $form->textField($model,'user_full_name',array('size'=>60,'maxlength'=>128)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_full_name',array('class'=>'span5','maxlength'=>128)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_email'); ?>
-		<?php echo $form->textField($model,'user_email',array('size'=>60,'maxlength'=>128)); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_email',array('class'=>'span5','maxlength'=>128)); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_lastvisit'); ?>
-		<?php echo $form->textField($model,'user_lastvisit'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_lastvisit',array('class'=>'span5')); ?>
 
-	<div class="row">
-		<?php echo $form->label($model,'user_created_date'); ?>
-		<?php echo $form->textField($model,'user_created_date'); ?>
-	</div>
+	<?php echo $form->textFieldRow($model,'user_created_date',array('class'=>'span5')); ?>
 
-	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+	<div class="form-actions">
+		<?php $this->widget('bootstrap.widgets.BootButton', array(
+			'type'=>'primary',
+			'label'=>'Search',
+		)); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
-
-</div><!-- search-form -->

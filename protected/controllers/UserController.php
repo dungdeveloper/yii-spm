@@ -2,12 +2,11 @@
 
 class UserController extends Controller
 {
-    //public $defaultAction = 'Admin';
-    /**
+	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
 	 * using two-column layout. See 'protected/views/layouts/column2.php'.
 	 */
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	/**
 	 * @return array action filters
@@ -26,23 +25,23 @@ class UserController extends Controller
 	 */
 	public function accessRules()
 	{
-		return array(
-			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','view'),
-				'users'=>array('@'),
-			),
-			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update','admin'),
+        return array(
+            array('allow',  // allow all users to perform 'index' and 'view' actions
+                'actions'=>array('index','view'),
+                'roles'=>array('client', 'lead'),
+            ),
+            array('allow', // allow authenticated user to perform 'create' and 'update' actions
+                'actions'=>array('create','update','admin'),
                 'roles'=>array('admin'),
-			),
-			/*array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('delete'),
-				'users'=>array('admin'),
-			),*/
-			array('deny',  // deny all users
-				'users'=>array('*'),
-			),
-		);
+            ),
+            /*array('allow', // allow admin user to perform 'admin' and 'delete' actions
+                   'actions'=>array('delete'),
+                   'users'=>array('admin'),
+               ),*/
+            array('deny',  // deny all users
+                'users'=>array('*'),
+            ),
+        );
 	}
 
 	/**
@@ -68,28 +67,28 @@ class UserController extends Controller
 	 */
 	public function actionCreate()
 	{
-		if(Yii::app()->user->checkAccess('createUser'))
+        if(Yii::app()->user->checkAccess('createUser'))
         {
             Yii::app()->user->setFlash('create_wraning',"You are requesting a new user that you are not authorized");
         }
         $model=new User('insert');
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['User']))
-		{
-			$model->attributes=$_POST['User'];
+        if(isset($_POST['User']))
+        {
+            $model->attributes=$_POST['User'];
             $model->user_name = strtolower($_POST['User']['user_name']);
             $model->user_email = strtolower($_POST['User']['user_email']);
             $model->user_created_date = time();
-			if($model->save())
+            if($model->save())
             {
                 $this->associateUserToRole($_POST['User']['user_role'], $model->user_id);
                 $this->redirect(array('view','id'=>$model->user_id));
             }
 
-		}
+        }
 
 		$this->render('create',array(
 			'model'=>$model,
@@ -103,26 +102,26 @@ class UserController extends Controller
 	 */
 	public function actionUpdate($id)
 	{
-		if(Yii::app()->user->checkAccess('updateUser'))
+        if(Yii::app()->user->checkAccess('updateUser'))
         {
             Yii::app()->user->setFlash('update_wraning', "You are requesting to update user info that you are not authorized" );
         }
         $model=$this->loadModel($id);
 
-		// Uncomment the following line if AJAX validation is needed
-		// $this->performAjaxValidation($model);
+        // Uncomment the following line if AJAX validation is needed
+        // $this->performAjaxValidation($model);
 
-		if(isset($_POST['User']))
-		{
+        if(isset($_POST['User']))
+        {
             $model->setScenario('update');
             $model->attributes=$_POST['User'];
-			if($model->save())
+            if($model->save())
             {
                 $this->deleteAllAssociateUserToRole($model->user_id);
                 $this->associateUserToRole($_POST['User']['user_role'],$model->user_id);
                 $this->redirect(array('view','id'=>$model->user_id));
             }
-		}
+        }
 
 		$this->render('update',array(
 			'model'=>$model,
@@ -154,13 +153,14 @@ class UserController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$id = Yii::app()->user->id;
+        $id = Yii::app()->user->id;
 
         if(!Yii::app()->user->checkAccess('admin'))
             $this->redirect(array('view', 'id' => $id));
 
         $dataProvider=new CActiveDataProvider('User');
-       // CVarDumper::dump($dataProvider); die;
+        // CVarDumper::dump($dataProvider); die;
+
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -208,8 +208,8 @@ class UserController extends Controller
 	}
 
     /*
-     * creates an association between the user and the user's role
-     */
+    * creates an association between the user and the user's role
+    */
     public function associateUserToRole($role, $userId)
     {
         $sql = "INSERT INTO AuthAssignment (itemname, userid, bizrule, data) VALUES (:role, :userId, '', 'N;')";

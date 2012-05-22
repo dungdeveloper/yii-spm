@@ -1,5 +1,9 @@
 <div class="view">
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('user_id')); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->user_id),array('view','id'=>$data->user_id)); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_name')); ?>:</b>
 	<?php echo CHtml::encode($data->user_name); ?>
 	<br />
@@ -20,10 +24,9 @@
 	<?php echo CHtml::encode($data->user_email); ?>
 	<br />
 
-    
-    <b></b><?php echo CHtml::link(CHtml::encode("View Detail"), array('view', 'id'=>$data->user_id)); ?></br>
-    <br />
-
+	<b><?php echo CHtml::encode($data->getAttributeLabel('user_password')); ?>:</b>
+	<?php echo CHtml::encode($data->user_password); ?>
+	<br />
 
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_lastvisit')); ?>:</b>
