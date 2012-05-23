@@ -24,11 +24,11 @@
 	<?php echo CHtml::encode($data->user_email); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('user_password')); ?>:</b>
+    <?php /*
+    <b><?php echo CHtml::encode($data->getAttributeLabel('user_password')); ?>:</b>
 	<?php echo CHtml::encode($data->user_password); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('user_lastvisit')); ?>:</b>
 	<?php echo CHtml::encode($data->user_lastvisit); ?>
 	<br />
@@ -38,5 +38,6 @@
 	<br />
 
 	*/ ?>
+    <br />
 
 </div>
